@@ -1,27 +1,28 @@
 ﻿<div class="jumbotron">
     <h1>Shopping Cart Kata</h1>
- 
+
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+<section ng-controller="ProductsCntrl">
+
+    <div class="row">
+        <div ng-repeat="product in products" class="col-xs-12 col-md-6 col-lg-4">
+            <strong>Product {{product.name}}</strong>
+            <p>{{product.cost | currency}}</p>
+            <p ng-show="product.discountQty > 0">If you order {{product.discountQty}} or more the price is {{product.discountCost | currency}} per item.</p>
+            <p>
+                Order Qty:  <select ng-change="addItem(product.id,product.cartItem)" ng-model="product.cartItem" ng-options="option for option in availableQty" class="form-control"></select>
+            </p>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <h2>Grand Total:</h2> {{totalCost | currency}}
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+</section>
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("/Scripts/Controllers/product-controller.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/services/data-service.js")"></script>
 }
